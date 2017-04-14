@@ -14,14 +14,12 @@
         android:id="@+id/main_logo_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:layout_marginRight="20dp">
 
         <ImageView
             android:id="@+id/main_appbar_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="100dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_tigerspike_logo_light"/>
 
@@ -30,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/small_text"
+            android:layout_gravity="center"
             android:backgroundTint="@color/colorPrimary"
             android:hint="Search by comma separated tags"
             android:visibility="gone"/>

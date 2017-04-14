@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity{
         }
 
         public GridLayoutManager getLayoutManager() {
-            layoutManager = new GridLayoutManager(MainActivity.this,3, LinearLayoutManager.VERTICAL, false);
+            layoutManager = new GridLayoutManager(MainActivity.this, 2, LinearLayoutManager.VERTICAL, false);
             return layoutManager;
         }
 

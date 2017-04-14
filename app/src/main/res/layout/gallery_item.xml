@@ -1,16 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="1dp"
     android:foreground="?android:attr/selectableItemBackground"
     >
 
     <ImageView
         android:id="@+id/thumbnail_image_view"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_margin="1dp"
+        android:layout_height="200dp"
         android:foreground="?android:attr/selectableItemBackground"
         />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="150dp"
+        android:alpha="0.7"
+        android:background="@color/colorBlack"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/image_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:textColor="@color/colorWhite"
+            android:textSize="10sp"/>
+        <TextView
+            android:id="@+id/image_taken_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/colorWhite"
+            android:maxLines="1"
+            android:textSize="8sp"/>
+        <TextView
+            android:id="@+id/image_published_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:maxLines="1"
+            android:textColor="@color/colorWhite"
+            android:textSize="8sp"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

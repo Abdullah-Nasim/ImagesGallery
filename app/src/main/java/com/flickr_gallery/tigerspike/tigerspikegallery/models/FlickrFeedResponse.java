@@ -2,6 +2,7 @@ package com.flickr_gallery.tigerspike.tigerspikegallery.models;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by Netaq on 4/13/2017.
  */
-public class FlickrFeedResponse {
+public class FlickrFeedResponse implements Serializable{
 
     public String title;
     public String link;
@@ -28,7 +29,7 @@ public class FlickrFeedResponse {
         this.items = items;
     }
 
-    public class Media {
+    public class Media implements Serializable{
 
         public String m;
 
@@ -41,7 +42,7 @@ public class FlickrFeedResponse {
         }
     }
 
-    public static class Item{
+    public static class Item implements Serializable {
 
         public String title;
         public String link;

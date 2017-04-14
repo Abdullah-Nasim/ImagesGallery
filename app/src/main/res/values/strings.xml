@@ -5,5 +5,6 @@
     <string name="image_preview">Image Preview</string>
     <string name="order_by_date_taken">Order By Date Taken</string>
     <string name="order_by_date_published">Order By Date Published</string>
+    <string name="save_to_gallery">Save to Gallery</string>
 
 </resources>

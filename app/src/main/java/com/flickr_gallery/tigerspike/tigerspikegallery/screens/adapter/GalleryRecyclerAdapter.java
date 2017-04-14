@@ -39,15 +39,23 @@ public class GalleryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         GalleryViewHolder vh = (GalleryViewHolder)holder;
+
         Common.setThumbnailImage(context,mDataSet.getItems().get(position).getMedia().getM(),vh.thumbnailImage);
+
+        vh.title.setText(mDataSet.getItems().get(position).getTitle());
+
+        vh.taken_date.setText("Taken Date and Time: " + mDataSet.getItems().get(position).getDate_taken().split("T")[0] + "  " + mDataSet.getItems().get(position).getDate_taken().substring(mDataSet.getItems().get(position).getDate_taken().indexOf('T')+1,mDataSet.getItems().get(position).getDate_taken().lastIndexOf('-')));
+
+        vh.published_date.setText("Published Date and Time: " + mDataSet.getItems().get(position).getPublished().split("T")[0] + "  " + mDataSet.getItems().get(position).getPublished().substring(mDataSet.getItems().get(position).getPublished().indexOf('T')+1,mDataSet.getItems().get(position).getPublished().lastIndexOf('Z')));
 
         vh.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ImagePreviewActivity.class);
+                intent.putExtra("ImageInfo",mDataSet.getItems().get(position));
                 context.startActivity(intent);
             }
         });
