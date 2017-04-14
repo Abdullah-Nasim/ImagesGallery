@@ -7,4 +7,18 @@
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_search_white_24dp"/>
+    <item android:id="@+id/action_filter"
+        android:title="@string/action_search"
+        android:orderInCategory="50"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_filter_list_white_24dp">
+    <menu>
+        <item android:id="@+id/order_date_taken"
+            android:title="@string/order_by_date_taken" />
+        <item android:id="@+id/order_date_published"
+            android:title="@string/order_by_date_published" />
+    </menu>
+    </item>
+
+
 </menu>

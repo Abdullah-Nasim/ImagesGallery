@@ -1,12 +1,15 @@
 package com.flickr_gallery.tigerspike.tigerspikegallery.screens.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.flickr_gallery.tigerspike.tigerspikegallery.R;
 import com.flickr_gallery.tigerspike.tigerspikegallery.models.FlickrFeedResponse;
+import com.flickr_gallery.tigerspike.tigerspikegallery.screens.ImagePreviewActivity;
 import com.flickr_gallery.tigerspike.tigerspikegallery.screens.viewholder.GalleryViewHolder;
 import com.flickr_gallery.tigerspike.tigerspikegallery.utils.Common;
 
@@ -39,8 +42,16 @@ public class GalleryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         GalleryViewHolder vh = (GalleryViewHolder)holder;
-
         Common.setThumbnailImage(context,mDataSet.getItems().get(position).getMedia().getM(),vh.thumbnailImage);
+
+        vh.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ImagePreviewActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override

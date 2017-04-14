@@ -19,7 +19,7 @@ public class FlickrFeedBAL {
     public static void getFlickrFeed(FlickrApiParams params, final FeedFetchListener listener){
 
 
-        Call<FlickrFeedResponse> call = RestClient.getAdapter().getAllFeed(params.getLang(),params.getFormat(),params.getNojsoncallback());
+        Call<FlickrFeedResponse> call = RestClient.getAdapter().getAllFeed(params.getLang(),params.getFormat(),params.getNojsoncallback(),params.getTags());
 
         call.enqueue(new Callback<FlickrFeedResponse>() {
             @Override

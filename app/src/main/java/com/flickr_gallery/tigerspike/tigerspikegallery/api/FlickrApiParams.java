@@ -9,11 +9,20 @@ public class FlickrApiParams {
     String lang;
     String format;
     int nojsoncallback;
+    String tags;
 
-    public FlickrApiParams(String lang, String format, int nojsoncallback) {
+    public FlickrApiParams(String lang, String format, int nojsoncallback, String tags) {
         this.lang = lang;
         this.format = format;
         this.nojsoncallback = nojsoncallback;
+        this.tags = tags;
+    }
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     public String getLang() {

@@ -1,5 +1,11 @@
 package com.flickr_gallery.tigerspike.tigerspikegallery.models;
 
+import android.support.annotation.NonNull;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -18,6 +24,10 @@ public class FlickrFeedResponse {
         return items;
     }
 
+    public void setItems(List<Item> items){
+        this.items = items;
+    }
+
     public class Media {
 
         public String m;
@@ -31,7 +41,7 @@ public class FlickrFeedResponse {
         }
     }
 
-    public class Item {
+    public static class Item{
 
         public String title;
         public String link;
@@ -114,6 +124,55 @@ public class FlickrFeedResponse {
         public void setTags(String tags) {
             this.tags = tags;
         }
+
+        public static class DateTakenComparator implements Comparator<Item>
+        {
+
+            @Override
+            public int compare(Item item, Item t1) {
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+                try {
+                    if (formatter.parse(item.getDate_taken().substring(0, item.getDate_taken().lastIndexOf('-'))).getTime() > formatter.parse(t1.getDate_taken().substring(0, item.getDate_taken().lastIndexOf('-'))).getTime()) {
+                        return 1;
+                    }
+                    else if (formatter.parse(item.getDate_taken().substring(0, item.getDate_taken().lastIndexOf('-'))).getTime() < formatter.parse(t1.getDate_taken().substring(0, item.getDate_taken().lastIndexOf('-'))).getTime()) {
+                        return -1;
+                    }
+                    else {
+                        return 0;
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            }
+        }
+
+        public static class DatePublishedComparator implements Comparator<Item>
+        {
+            @Override
+            public int compare(Item item, Item t1) {
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
+                try {
+                    if (formatter.parse(item.getPublished()).getTime() > formatter.parse(t1.getPublished()).getTime()) {
+                        return 1;
+                    }
+                    else if (formatter.parse(item.getPublished()).getTime() < formatter.parse(t1.getPublished()).getTime()) {
+                        return -1;
+                    }
+                    else {
+                        return 0;
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            }
+        }
+
+
     }
 }
 

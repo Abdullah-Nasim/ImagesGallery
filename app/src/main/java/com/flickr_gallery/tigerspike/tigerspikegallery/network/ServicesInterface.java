@@ -14,6 +14,6 @@ public interface ServicesInterface {
 
 
     @GET(EndPoint.EndPoint)
-    Call<FlickrFeedResponse> getAllFeed(@Query("lang") String lang, @Query("format") String format, @Query("nojsoncallback") int nojsoncallback);
+    Call<FlickrFeedResponse> getAllFeed(@Query("lang") String lang, @Query("format") String format, @Query("nojsoncallback") int nojsoncallback, @Query("tags") String tags);
 
 }

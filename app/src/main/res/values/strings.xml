@@ -2,4 +2,8 @@
     <string name="app_name">TigerSpike Gallery</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
+    <string name="image_preview">Image Preview</string>
+    <string name="order_by_date_taken">Order By Date Taken</string>
+    <string name="order_by_date_published">Order By Date Published</string>
+
 </resources>
