@@ -68,7 +68,10 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-        private void initViews() {
+    /**
+     * This method is responsible for initializing the views and data members of this class
+     */
+    private void initViews() {
 
             ///Initializing params with default values
             params = new FlickrApiParams("en", "json", 1, "");
@@ -101,7 +104,10 @@ public class MainActivity extends AppCompatActivity{
 
         }
 
-        private void fetchFlickrFeed() {
+    /**
+     * This function is responsible of fetching the fickr feeds and initializing the adapter for gallery recycler.
+     */
+    private void fetchFlickrFeed() {
 
             //Show loading view.
             progressView.show(MainActivity.this.getSupportFragmentManager(), "");
@@ -145,12 +151,19 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-        private void setToolbar() {
+    /**
+     * This methos is responsible for setting up the home toolbar.
+     */
+    private void setToolbar() {
             Toolbar toolbar = (Toolbar) findViewById(R.id.home_toolbar);
             setSupportActionBar(toolbar);
         }
 
-        public GridLayoutManager getLayoutManager() {
+    /**
+     * This method is responsible for setting up the GridLayoutManager for gallery recycler.
+     * @return
+     */
+    public GridLayoutManager getLayoutManager() {
             layoutManager = new GridLayoutManager(MainActivity.this, 2, LinearLayoutManager.VERTICAL, false);
             return layoutManager;
         }

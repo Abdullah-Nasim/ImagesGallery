@@ -11,6 +11,13 @@ public class FlickrApiParams {
     int nojsoncallback;
     String tags;
 
+    /**
+     * This constructor takes all the required params for a flickr API call.
+     * @param lang
+     * @param format
+     * @param nojsoncallback
+     * @param tags
+     */
     public FlickrApiParams(String lang, String format, int nojsoncallback, String tags) {
         this.lang = lang;
         this.format = format;

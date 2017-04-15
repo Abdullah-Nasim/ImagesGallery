@@ -9,6 +9,7 @@ public class EndPoint {
     //Defining the base URL
     public static final String BASE_URL = "https://api.flickr.com/services/feeds/";
 
+    //Defining the Flickr public endpoint
     public static final String EndPoint = "photos_public.gne";
 
 }

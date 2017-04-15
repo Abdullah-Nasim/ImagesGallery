@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
+                /* Create an Intent that will start the Main-Activity. */
                 Intent mainIntent = new Intent(SplashActivity.this,MainActivity.class);
                 startActivity(mainIntent);
                 finish();

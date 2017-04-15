@@ -1,18 +1,13 @@
 package com.flickr_gallery.tigerspike.tigerspikegallery.utils;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +15,6 @@ import android.widget.ImageView;
 
 import com.flickr_gallery.tigerspike.tigerspikegallery.R;
 import com.flickr_gallery.tigerspike.tigerspikegallery.models.FlickrFeedResponse;
-import com.flickr_gallery.tigerspike.tigerspikegallery.screens.MainActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -31,7 +25,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import static android.view.View.*;
 
 /**
  * Created by Netaq on 4/14/2017.
@@ -39,8 +32,6 @@ import static android.view.View.*;
 
 public class Common {
 
-    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 2 ;
     private static ProgressView progress;
 
     private static boolean checkEmail;
@@ -106,6 +97,11 @@ public class Common {
 
     }
 
+    /**
+     * This function is responsible for opening the image in browser.
+     * @param context
+     * @param url
+     */
     public static void openImageInBrowser(Context context, String url){
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         context.startActivity(browserIntent);
@@ -170,6 +166,13 @@ public class Common {
                 .into(getTarget(context, url, title));
     }
 
+    /**
+     * This function is responsible for downloading the image and sending it via email or any other application.
+     * The checkEmail specifies that the Target method is being called for saving the image to share.
+     * @param context
+     * @param url
+     * @param title
+     */
     public static void imageEmail(Context context, String url, String title){
         checkEmail = true;
         Picasso.with(context)
@@ -206,10 +209,10 @@ public class Common {
 
                         try {
                             file.createNewFile();
-                            FileOutputStream ostream = new FileOutputStream(file);
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
-                            ostream.flush();
-                            ostream.close();
+                            FileOutputStream oStream = new FileOutputStream(file);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, oStream);
+                            oStream.flush();
+                            oStream.close();
                             galleryAddPic(file, context);
 
                             if(checkEmail){

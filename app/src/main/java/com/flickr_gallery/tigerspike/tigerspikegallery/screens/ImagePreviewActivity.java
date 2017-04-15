@@ -63,7 +63,9 @@ public class ImagePreviewActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * This method is responsible for setting up the toolbar
+     */
     private void setToolbar() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
