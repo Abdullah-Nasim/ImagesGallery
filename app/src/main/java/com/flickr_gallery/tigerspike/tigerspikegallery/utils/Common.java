@@ -1,16 +1,27 @@
 package com.flickr_gallery.tigerspike.tigerspikegallery.utils;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.flickr_gallery.tigerspike.tigerspikegallery.R;
 import com.flickr_gallery.tigerspike.tigerspikegallery.models.FlickrFeedResponse;
+import com.flickr_gallery.tigerspike.tigerspikegallery.screens.MainActivity;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -20,25 +31,57 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+import static android.view.View.*;
+
 /**
  * Created by Netaq on 4/14/2017.
  */
 
 public class Common {
 
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 2 ;
     private static ProgressView progress;
 
-    //Set the thumbnail image.
+    private static boolean checkEmail;
+
+    /**
+     * This function takes the following params and uses picasso library to render the image in  given image view.
+     * This function is being used by recycler adapter to set the thumbnail images.
+     * @param context
+     * @param url
+     * @param imageView
+     */
     public static void setThumbnailImage(final Context context, String url, ImageView imageView){
 
         Picasso.with(context).load(url).placeholder(R.drawable.placeholder_thumbnail).fit().into(imageView);
 
     }
 
-    //Set the image in preview layout.
-    public static void setPreviewImage(final Context context, String url, ImageView imageView){
+    /**
+     * This function takes the following params and uses picasso library to render the image in given image view.
+     * This function is being used by the ImagePreviewActivity class to render the image in preview image vive.
+     * @param context
+     * @param url
+     * @param imageView
+     * @param progressView
+     */
+    public static void setPreviewImage(final AppCompatActivity context, String url, ImageView imageView, final ProgressView progressView){
 
-        Picasso.with(context).load(url).placeholder(R.drawable.image_preview_placeholder).fit().into(imageView);
+        //Show loading view.
+        progressView.show(context.getSupportFragmentManager(), "");
+
+        Picasso.with(context).load(url).resize(1600,1200).centerCrop().into(imageView, new Callback() {
+            @Override
+            public void onSuccess() {
+                progressView.dismiss();
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
 
     }
 
@@ -50,7 +93,50 @@ public class Common {
         return progress;
     }
 
-    //Sort the pictures based on Date Taken
+
+    /**
+     * This function takes the coordinate layout and error message as a parameter from any activity or fragment
+     * ans shows the Snack bar on respective coordinate layout.
+     * @param coordinatorLayout
+     * @param string
+     */
+    public static void showSnackBarLong(CoordinatorLayout coordinatorLayout, String string) {
+
+        Snackbar.make(coordinatorLayout, string,Snackbar.LENGTH_LONG).show();
+
+    }
+
+    public static void openImageInBrowser(Context context, String url){
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        context.startActivity(browserIntent);
+    }
+
+
+    /**
+     *
+     * @param context
+     * @param file
+     */
+    public static void sendImageViaEmail(Context context, File file){
+
+        Uri uri = Uri.fromFile(file);
+
+        //Email the saved image.
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/jpeg");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Shared image from TigerSpike Gallery");
+        intent.putExtra(Intent.EXTRA_TEXT, "This image is being sent from TigerSpike Test Assignment!");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        context.startActivity(Intent.createChooser(intent, "Email image"));
+
+    }
+
+
+    /**
+     * This function takes flickr feed list as a parameter and sorts the list based on Date Taken
+     * @param list
+     * @return
+     */
     public static List<FlickrFeedResponse.Item> sortByDateTaken(List<FlickrFeedResponse.Item> list){
 
         Collections.sort(list, new FlickrFeedResponse.Item.DateTakenComparator());
@@ -58,7 +144,12 @@ public class Common {
         return list;
     }
 
-    //Sort the pictures based on Published Date
+
+    /**
+     * This function takes flickr feed list as a parameter and sorts the list based on Date Published
+     * @param list
+     * @return
+     */
     public static List<FlickrFeedResponse.Item> sortByDatePublished(List<FlickrFeedResponse.Item> list){
 
         Collections.sort(list, new FlickrFeedResponse.Item.DatePublishedComparator());
@@ -66,14 +157,34 @@ public class Common {
         return list;
     }
 
-    //The following methods implementation saves the image to external storage.
+
+    /**
+     * This function downloads the image to save in gallery
+     * @param context
+     * @param url
+     * @param title
+     */
     public static void imageDownload(Context context, String url, String title){
         Picasso.with(context)
                 .load(url)
                 .into(getTarget(context, url, title));
     }
 
-    //target to save
+    public static void imageEmail(Context context, String url, String title){
+        checkEmail = true;
+        Picasso.with(context)
+                .load(url)
+                .into(getTarget(context, url, title));
+    }
+
+
+    /**
+     * This function is being called by imageDownload to save the image in external storage.
+     * @param context
+     * @param url
+     * @param title
+     * @return
+     */
     private static Target getTarget(final Context context, final String url, final String title){
         Target target = new Target(){
 
@@ -84,14 +195,15 @@ public class Common {
                     @Override
                     public void run() {
 
-                        String path = Environment.getExternalStorageDirectory() + "/" + "TigerSpike Gallery/";
-                        File dir = new File(path);
-
-                        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/TigerSpike Gallery/" + title + ".jpg");
+                        String path = "TigerSpike Gallery/";
+                        File dir = new File(Environment.getExternalStorageDirectory(),path);
 
                         if(!dir.exists()){
                             dir.mkdir();
                         }
+
+                        File file = new File(dir,title+".jpg");
+
                         try {
                             file.createNewFile();
                             FileOutputStream ostream = new FileOutputStream(file);
@@ -99,6 +211,11 @@ public class Common {
                             ostream.flush();
                             ostream.close();
                             galleryAddPic(file, context);
+
+                            if(checkEmail){
+                                sendImageViaEmail(context,file);
+                            }
+
                         } catch (IOException e) {
                             Log.e("IOException", e.getLocalizedMessage());
                         }
@@ -120,7 +237,12 @@ public class Common {
         return target;
     }
 
-    //rescan the gallery once the image is added
+
+    /**
+     * This function enables the gallery to find the downloaded picture.
+     * @param file
+     * @param context
+     */
     private static void galleryAddPic(File file, Context context) {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         Uri contentUri = Uri.fromFile(file);

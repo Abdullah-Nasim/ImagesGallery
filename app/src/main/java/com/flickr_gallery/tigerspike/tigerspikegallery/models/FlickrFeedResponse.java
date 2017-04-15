@@ -1,6 +1,5 @@
 package com.flickr_gallery.tigerspike.tigerspikegallery.models;
 
-import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.text.DateFormat;

@@ -1,12 +1,15 @@
 package com.flickr_gallery.tigerspike.tigerspikegallery.screens;
 
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +37,9 @@ public class MainActivity extends AppCompatActivity{
 
     @BindView(R.id.search_input)
     TextInputEditText searchInput;
+
+    @BindView(R.id.main_activity_coordinate_layout)
+    CoordinatorLayout coordinatorLayout;
 
 
     private ProgressView progressView;
@@ -74,6 +80,25 @@ public class MainActivity extends AppCompatActivity{
             //The following function call is responsible to fetch the Flickr Feeds.
             fetchFlickrFeed();
 
+            //Change the search once the tag is entered.
+            searchInput.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    //Set the icon of search menu item.
+                    searchMenuItem.setIcon(getResources().getDrawable(R.drawable.ic_check_white_24dp));
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+
         }
 
         private void fetchFlickrFeed() {
@@ -89,27 +114,28 @@ public class MainActivity extends AppCompatActivity{
                 recycler.setLayoutManager(getLayoutManager());
                 recycler.setAdapter(adapter);
                 progressView.dismiss();
+                Common.showSnackBarLong(coordinatorLayout, getString(R.string.success_message));
 
             }
 
             @Override
             public void onFeedNotFetched() {
-
+                Common.showSnackBarLong(coordinatorLayout, getString(R.string.fees_not_fetched_message));
             }
 
             @Override
             public void onNetworkFailure() {
-
+                Common.showSnackBarLong(coordinatorLayout, getString(R.string.network_failure_message));
             }
 
             @Override
             public void onResponseIssue() {
-
+                Common.showSnackBarLong(coordinatorLayout, getString(R.string.response_issue_messgae));
             }
 
             @Override
             public void onRequestTimeout() {
-
+                Common.showSnackBarLong(coordinatorLayout, getString(R.string.request_timeout_message));
             }
 
             @Override
@@ -156,9 +182,6 @@ public class MainActivity extends AppCompatActivity{
                 fetchFlickrFeed();
             }
 
-            //Set the icon of search menu item.
-            searchMenuItem.setIcon(getResources().getDrawable(R.drawable.ic_check_white_24dp));
-
             return true;
         } else if (id == R.id.order_date_taken){
 
@@ -183,6 +206,8 @@ public class MainActivity extends AppCompatActivity{
         if(searchInput.getVisibility() == View.VISIBLE){
             searchInput.setVisibility(View.GONE);
             appBarLogo.setVisibility(View.VISIBLE);
+            searchMenuItem.setIcon(getResources().getDrawable(R.drawable.ic_search_white_24dp));
+
         }
         else{
             super.onBackPressed();
