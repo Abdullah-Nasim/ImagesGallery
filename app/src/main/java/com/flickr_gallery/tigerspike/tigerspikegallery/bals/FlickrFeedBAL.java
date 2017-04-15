@@ -11,7 +11,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Netaq on 4/13/2017.
+ * Created by Abdullah on 4/13/2017.
+ * Email: abdullahdxbid@gmail.com
  */
 
 public class FlickrFeedBAL {

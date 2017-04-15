@@ -41,19 +41,19 @@ public class MainActivity extends AppCompatActivity{
     @BindView(R.id.main_activity_coordinate_layout)
     CoordinatorLayout coordinatorLayout;
 
-
     private ProgressView progressView;
 
-    GalleryRecyclerAdapter adapter;
+    private GalleryRecyclerAdapter adapter;
 
-    GridLayoutManager layoutManager;
+    private GridLayoutManager layoutManager;
 
-    MenuItem searchMenuItem;
+    private MenuItem searchMenuItem;
 
-    FlickrApiParams params;
+    private FlickrApiParams params;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity{
     /**
      * This method is responsible for initializing the views and data members of this class
      */
-    private void initViews() {
+    public void initViews() {
 
             ///Initializing params with default values
             params = new FlickrApiParams("en", "json", 1, "");
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity{
     /**
      * This function is responsible of fetching the fickr feeds and initializing the adapter for gallery recycler.
      */
-    private void fetchFlickrFeed() {
+    public void fetchFlickrFeed() {
 
             //Show loading view.
             progressView.show(MainActivity.this.getSupportFragmentManager(), "");
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     /**
-     * This methos is responsible for setting up the home toolbar.
+     * This method is responsible for setting up the home toolbar.
      */
     private void setToolbar() {
             Toolbar toolbar = (Toolbar) findViewById(R.id.home_toolbar);
@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         searchMenuItem = menu.findItem(R.id.action_search);
@@ -179,6 +180,7 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.

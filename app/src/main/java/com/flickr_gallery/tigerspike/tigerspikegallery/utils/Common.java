@@ -10,7 +10,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.flickr_gallery.tigerspike.tigerspikegallery.R;
@@ -27,7 +26,8 @@ import java.util.List;
 
 
 /**
- * Created by Netaq on 4/14/2017.
+ * Created by Abdullah on 4/14/2017.
+ * Email: abdullahdxbid@gmail.com
  */
 
 public class Common {

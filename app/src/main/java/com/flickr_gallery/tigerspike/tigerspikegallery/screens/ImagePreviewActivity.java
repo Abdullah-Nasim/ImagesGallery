@@ -20,7 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Netaq on 4/14/2017.
+ * Created by Abdullah on 4/14/2017.
+ * Email: abdullahdxbid@gmail.com
  */
 
 public class ImagePreviewActivity extends AppCompatActivity {

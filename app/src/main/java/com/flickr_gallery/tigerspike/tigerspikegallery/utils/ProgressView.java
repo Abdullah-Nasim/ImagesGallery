@@ -13,7 +13,8 @@ import android.view.WindowManager;
 import com.flickr_gallery.tigerspike.tigerspikegallery.R;
 
 /**
- * Created by Netaq on 4/14/2017.
+ * Created by Abdullah on 4/14/2017.
+ * Email: abdullahdxbid@gmail.com
  */
 
 
